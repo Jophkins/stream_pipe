@@ -7,7 +7,8 @@ import { IS_DEV_ENV } from '../shared/utils/is-dev.util'
 
 import { getGraphQLConfig } from './config/graphql.config'
 import { PrismaModule } from './prisma/prisma.module'
-import { RedisModule } from './redis/redis.module';
+import { RedisModule } from './redis/redis.module'
+import { AccountModule } from '../modules/auth/account/account.module'
 
 @Module({
 	imports: [
@@ -17,12 +18,13 @@ import { RedisModule } from './redis/redis.module';
 		}),
 		GraphQLModule.forRootAsync({
 			driver: ApolloDriver,
-      imports: [ConfigModule],
+			imports: [ConfigModule],
 			useFactory: getGraphQLConfig,
-      inject: [ConfigService]
+			inject: [ConfigService]
 		}),
 		PrismaModule,
-		RedisModule
+		RedisModule,
+		AccountModule
 	]
 })
 export class CoreModule {}
